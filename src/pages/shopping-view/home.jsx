@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
-import bannerOne from "../../assets/banner-1.webp";
-import bannerTwo from "../../assets/banner-2.webp";
-import bannerThree from "../../assets/banner-3.webp";
+import bannerOne from "@/assets/banner/banner1.jpg";
+import bannerTwo from "@/assets/banner/banner2.jpg";
+import bannerThree from "@/assets/banner/banner3.jpg";
+import bannerFour from "@/assets/banner/banner4.jpg";
 
 import {
   Airplay,
@@ -248,46 +249,57 @@ function ShoppingHome() {
         <title>Thế Giới Gỗ và Nội Thất - Tavico Home</title> 
       </Helmet>
       <div className="relative w-full overflow-hidden">
-        <div className="relative h-[50vw] md:h-[600px] overflow-hidden">
-          {featureImageList && featureImageList.length > 0
-            ? featureImageList.map((slide, index) => (
-                <img
-                  src={slide?.image}
-                  key={index}
-                  className={`${
-                    index === currentSlide ? "opacity-100" : "opacity-0"
-                  } absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000`}
-                />
-              ))
-            : null}
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() =>
-              setCurrentSlide(
-                (prevSlide) =>
-                  (prevSlide - 1 + featureImageList.length) %
-                  featureImageList.length
-              )
-            }
-            className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80"
-          >
-            <ChevronLeftIcon className="w-4 h-4" />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() =>
-              setCurrentSlide(
-                (prevSlide) => (prevSlide + 1) % featureImageList.length
-              )
-            }
-            className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/80"
-          >
-            <ChevronRightIcon className="w-4 h-4" />
-          </Button>
-        </div>
-      </div>
+  <div className="relative h-[50vw] md:h-[600px] overflow-hidden">
+    {(
+      featureImageList && featureImageList.length > 0
+        ? featureImageList
+        : [
+            { image: bannerOne, alt: 'Tavico Home Banner 1' },
+            { image: bannerTwo, alt: 'Tavico Home Banner 2' },
+            { image: bannerThree, alt: 'Tavico Home Banner 3' },
+            { image: bannerFour, alt: 'Tavico Home Banner 4' },
+          ]
+    ).map((slide, index) => (
+      <img
+        src={slide?.image}
+        alt={slide?.alt || `Slide ${index + 1}`}
+        key={index}
+        className={`${
+          index === currentSlide ? "opacity-100" : "opacity-0"
+        } absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000`}
+      />
+    ))}
+    <Button
+      variant="outline"
+      size="icon"
+      onClick={() =>
+        setCurrentSlide(
+          (prevSlide) =>
+            (prevSlide - 1 +
+              (featureImageList?.length || 3)) %
+            (featureImageList?.length || 3)
+        )
+      }
+      className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80"
+    >
+      <ChevronLeftIcon className="w-4 h-4" />
+    </Button>
+    <Button
+      variant="outline"
+      size="icon"
+      onClick={() =>
+        setCurrentSlide(
+          (prevSlide) =>
+            (prevSlide + 1) % (featureImageList?.length || 3)
+        )
+      }
+      className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/80"
+    >
+      <ChevronRightIcon className="w-4 h-4" />
+    </Button>
+  </div>
+</div>
+
 
       {/* Về chúng tôi */}
       <motion.section
