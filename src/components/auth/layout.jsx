@@ -2,7 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import backgroundImage from '@/assets/wood-bg.jpg';
 import logo from '@/assets/logo-tavicohome.png';
-import tavicoLogo from '@/assets/logo-TAVICO.webp';
+import tavicoLogo from '@/assets/Logo-TAVICO.webp';
 import { Mail, MapPin, Phone } from 'lucide-react';
 
 function AuthLayout() {
