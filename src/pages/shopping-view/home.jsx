@@ -168,12 +168,36 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
+const defaultFeatureImages = [
+  {
+    id: 1,
+    image: bannerOne,
+  },
+  {
+    id: 2,
+    image: bannerTwo,
+  },
+  {
+    id: 3,
+    image: bannerThree,
+  },
+  {
+    id: 4,
+    image: bannerFour,
+  },
+];  
+
 function ShoppingHome() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { productList, productDetails } = useSelector(
     (state) => state.shopProducts
   );
   const { featureImageList } = useSelector((state) => state.commonFeature);
+
+  const imagesToDisplay =
+    featureImageList && featureImageList.length > 0
+      ? featureImageList
+      : defaultFeatureImages;
 
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
 
@@ -220,11 +244,11 @@ function ShoppingHome() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length);
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % imagesToDisplay.length);
     }, 15000);
 
     return () => clearInterval(timer);
-  }, [featureImageList]);
+  }, [imagesToDisplay]);
 
   useEffect(() => {
     dispatch(
@@ -246,60 +270,49 @@ function ShoppingHome() {
   return (
     <div className="flex flex-col min-h-screen">
       <Helmet>
-        <title>Thế Giới Gỗ và Nội Thất - Tavico Home</title> 
+        <title>Thế Giới Gỗ và Nội Thất - Tavico Home</title>
       </Helmet>
       <div className="relative w-full overflow-hidden">
-  <div className="relative h-[50vw] md:h-[600px] overflow-hidden">
-    {(
-      featureImageList && featureImageList.length > 0
-        ? featureImageList
-        : [
-            { image: bannerOne, alt: 'Tavico Home Banner 1' },
-            { image: bannerTwo, alt: 'Tavico Home Banner 2' },
-            { image: bannerThree, alt: 'Tavico Home Banner 3' },
-            { image: bannerFour, alt: 'Tavico Home Banner 4' },
-          ]
-    ).map((slide, index) => (
-      <img
-        src={slide?.image}
-        alt={slide?.alt || `Slide ${index + 1}`}
-        key={index}
-        className={`${
-          index === currentSlide ? "opacity-100" : "opacity-0"
-        } absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000`}
-      />
-    ))}
-    <Button
-      variant="outline"
-      size="icon"
-      onClick={() =>
-        setCurrentSlide(
-          (prevSlide) =>
-            (prevSlide - 1 +
-              (featureImageList?.length || 3)) %
-            (featureImageList?.length || 3)
-        )
-      }
-      className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80"
-    >
-      <ChevronLeftIcon className="w-4 h-4" />
-    </Button>
-    <Button
-      variant="outline"
-      size="icon"
-      onClick={() =>
-        setCurrentSlide(
-          (prevSlide) =>
-            (prevSlide + 1) % (featureImageList?.length || 3)
-        )
-      }
-      className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/80"
-    >
-      <ChevronRightIcon className="w-4 h-4" />
-    </Button>
-  </div>
-</div>
-
+        <div className="relative h-[50vw] md:h-[600px] overflow-hidden">
+          {imagesToDisplay && imagesToDisplay.length > 0
+            ? imagesToDisplay.map((slide, index) => (
+                <img
+                  src={slide?.image}
+                  key={index}
+                  className={`${
+                    index === currentSlide ? "opacity-100" : "opacity-0"
+                  } absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000`}
+                />
+              ))
+            : null}
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() =>
+              setCurrentSlide(
+                (prevSlide) =>
+                  (prevSlide - 1 + imagesToDisplay.length) %
+                  imagesToDisplay.length
+              )
+            }
+            className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80"
+          >
+            <ChevronLeftIcon className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() =>
+              setCurrentSlide(
+                (prevSlide) => (prevSlide + 1) % imagesToDisplay.length
+              )
+            }
+            className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/80"
+          >
+            <ChevronRightIcon className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
 
       {/* Về chúng tôi */}
       <motion.section
@@ -343,7 +356,10 @@ function ShoppingHome() {
               className="mt-6 px-4 py-2 bg-primary text-white font-semibold text-sm rounded-full shadow-md hover:shadow-lg focus:ring-2 focus:ring-primary-light transition-transform duration-200 ease-out"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => window.location.href = "/gioi-thieu/cong-ty-co-phan-tavico-home"}
+              onClick={() =>
+                (window.location.href =
+                  "/gioi-thieu/cong-ty-co-phan-tavico-home")
+              }
             >
               Tìm hiểu thêm
             </motion.button>
@@ -401,7 +417,7 @@ function ShoppingHome() {
             <iframe
               width="100%"
               height="500"
-              src="https://www.youtube.com/embed/nmaOrjE_CPw" 
+              src="https://www.youtube.com/embed/nmaOrjE_CPw"
               title="Video lớn"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
@@ -425,10 +441,10 @@ function ShoppingHome() {
                   }
                 >
                   <img
-                    src={getThumbnailUrl(videoItem.id)} 
+                    src={getThumbnailUrl(videoItem.id)}
                     alt={`Video thumbnail ${index + 1}`}
                     className="w-full h-auto rounded-lg"
-                    style={{ objectFit: "cover" }} 
+                    style={{ objectFit: "cover" }}
                   />
                   <div className="absolute top-0 left-0 w-full h-full bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center">
                     <FontAwesomeIcon
@@ -446,7 +462,12 @@ function ShoppingHome() {
               className="mt-4 px-6 py-2 bg-primary text-white font-semibold text-sm rounded-full shadow-md hover:shadow-lg focus:ring-2 focus:ring-primary-light transition-transform duration-200 ease-out"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
-              onClick={() => window.open("https://www.youtube.com/@thegioinoithatgotaytavicohome/videos", "_blank")}
+              onClick={() =>
+                window.open(
+                  "https://www.youtube.com/@thegioinoithatgotaytavicohome/videos",
+                  "_blank"
+                )
+              }
             >
               Xem thêm
             </motion.button>
@@ -507,7 +528,7 @@ function ShoppingHome() {
             Đối tác
           </h2>
         </div>
-      <PartnerSection />
+        <PartnerSection />
       </div>
 
       {/* <motion.section

@@ -108,12 +108,12 @@ export const shoppingViewHeaderMenuItems = [
     path: "/",
   },
   {
-    id: "introduction",
+    id: "2",
     label: "Giới thiệu",
     path: "/gioi-thieu/cong-ty-co-phan-tavico-home",
     subMenu: [
-      { id: "tavicohome", label: "Công ty Cổ phần Tavico Home", path: "/gioi-thieu/cong-ty-co-phan-tavico-home" },
-      { id: "tavico", label: "Công ty Tavico - Nhà Tổ Chức", path: "/gioi-thieu/cong-ty-tavico-nha-to-chuc" },
+      { id: "2", label: "Công ty Cổ phần Tavico Home", path: "/gioi-thieu/cong-ty-co-phan-tavico-home" },
+      { id: "2", label: "Công ty Tavico - Nhà Tổ Chức", path: "/gioi-thieu/cong-ty-tavico-nha-to-chuc" },
     ],
   },
   {

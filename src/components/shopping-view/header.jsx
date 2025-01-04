@@ -1,4 +1,11 @@
-import { HousePlug, LogIn, LogOut, Menu, ShoppingCart, UserCog } from "lucide-react";
+import {
+  HousePlug,
+  LogIn,
+  LogOut,
+  Menu,
+  ShoppingCart,
+  UserCog,
+} from "lucide-react";
 import {
   Link,
   useLocation,
@@ -29,6 +36,19 @@ function MenuItems() {
   const navigate = useNavigate();
   const location = useLocation(); // Lấy đường dẫn hiện tại
   const [searchParams, setSearchParams] = useSearchParams();
+  const [menuState, setMenuState] = useState(
+    shoppingViewHeaderMenuItems.map((menu) => ({ id: menu.id, isOpen: false }))
+  );
+
+  const toggleDropdown = (menuId) => {
+    setMenuState((prevState) =>
+      prevState.map((menu) => 
+        menu.id === menuId
+          ? { ...menu, isOpen: !menu.isOpen }
+          : { ...menu, isOpen: false }  
+      )
+    );
+  };
 
   function handleNavigate(getCurrentMenuItem) {
     sessionStorage.removeItem("filters");
@@ -47,44 +67,74 @@ function MenuItems() {
       ? setSearchParams(
           new URLSearchParams(`?category=${getCurrentMenuItem.id}`)
         )
-      : window.location.href = getCurrentMenuItem.path;
+      : (window.location.href = getCurrentMenuItem.path);
   }
 
   return (
-    <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row">
+    <nav className="flex flex-col lg:flex-row lg:items-center gap-6 mb-3 lg:mb-0">
       {shoppingViewHeaderMenuItems.map((menuItem) => {
-        const isActive = location.pathname === menuItem.path; // Kiểm tra mục đang hoạt động
+        const isActive =
+          location.pathname === menuItem.path ||
+          menuItem.subMenu?.some((sub) => location.pathname === sub.path);
+
+        const isOpen = menuState.find(
+          (menu) => menu.id === menuItem.id
+        )?.isOpen;
 
         return (
-          <div key={menuItem.id} className="relative group h-[64px] flex items-center">
+          <div key={menuItem.id} className="relative group">
+            {/* Menu Item */}
             <Label
-              onClick={() => handleNavigate(menuItem)}
-              className={`text-md font-bold cursor-pointer relative transition-colors ${
+              onClick={() =>
+                menuItem.subMenu
+                  ? toggleDropdown(menuItem.id)
+                  : handleNavigate(menuItem)
+              }
+              className={`text-md font-bold py-5 px-2 cursor-pointer transition-colors ${
                 isActive ? "text-red-600" : "text-blue-800"
               }`}
             >
               {menuItem.label}
               <span
-                className={`absolute left-1/2 bottom-[-6px] transform -translate-x-1/2 h-[2px] bg-red-600 transition-all duration-300 group-hover:w-full ${
-                  isActive ? "w-0" : "w-0"
+                className={`absolute left-1/2 bottom-[-6px] transform -translate-x-1/2 h-[2px] bg-red-600 transition-all duration-300 ${
+                  isActive ? "w-0" : "w-0 lg:group-hover:w-full"
                 }`}
               ></span>
             </Label>
+
             {/* Dropdown Menu */}
             {menuItem.subMenu && (
-              <div
-                className="absolute text-sm font-bold left-0 top-16 hidden w-64 bg-blue-700 shadow-lg group-hover:block group-focus-within:block"
-              >
-                {menuItem.subMenu.map((subItem) => (
-                  <div
-                    key={subItem.id}
-                    className="px-4 py-2 text-white hover:bg-blue-900 cursor-pointer"
-                    onClick={() => window.location.href = subItem.path}
-                  >
-                    {subItem.label}
-                  </div>
-                ))}
-              </div>
+              <>
+                {/* Mobile Dropdown */}
+                <div
+                  className={`lg:hidden ${
+                    isOpen ? "block" : "hidden"
+                  } relative mt-2 bg-blue-700 text-white text-sm font-bold shadow-lg`}
+                >
+                  {menuItem.subMenu.map((subItem) => (
+                    <div
+                      key={subItem.id}
+                      className="px-4 py-2 hover:bg-blue-900 cursor-pointer"
+                      onClick={() => (window.location.href = subItem.path)}
+                    >
+                      {subItem.label}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Desktop Dropdown */}
+                <div className="hidden lg:group-hover:block mt-2 absolute lg:left-0 lg:top-full w-64 bg-blue-700 text-white text-sm font-bold shadow-lg">
+                  {menuItem.subMenu.map((subItem) => (
+                    <div
+                      key={subItem.id}
+                      className="px-4 py-2 hover:bg-blue-900 cursor-pointer"
+                      onClick={() => (window.location.href = subItem.path)}
+                    >
+                      {subItem.label}
+                    </div>
+                  ))}
+                </div>
+              </>
             )}
           </div>
         );
@@ -92,7 +142,6 @@ function MenuItems() {
     </nav>
   );
 }
-
 
 function HeaderRightContent() {
   const { user } = useSelector((state) => state.auth);
@@ -115,20 +164,20 @@ function HeaderRightContent() {
 
   return (
     <div className="flex lg:items-center lg:flex-row flex-col gap-4 w-[125px] justify-end">
-      {/* Nếu người dùng chưa đăng nhập */}
       {!user ? (
         <Button
-          // variant="link"
           onClick={() => navigate("auth/login")}
-          className="flex items-center gap-2 bg-blue-600 text-white px-2 py-1 rounded-md text-sm font-bold hover:bg-blue-700" 
+          className="flex items-center gap-2 bg-blue-600 text-white px-2 py-1 rounded-md text-sm font-bold hover:bg-blue-700"
         >
           <LogIn className="w-4 h-4" />
           Đăng nhập
         </Button>
       ) : (
         <>
-          {/* Giỏ hàng */}
-          <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
+          <Sheet
+            open={openCartSheet}
+            onOpenChange={() => setOpenCartSheet(false)}
+          >
             <Button
               onClick={() => setOpenCartSheet(true)}
               variant="outline"
@@ -147,7 +196,6 @@ function HeaderRightContent() {
             />
           </Sheet>
 
-          {/* Avatar và Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar className="bg-black cursor-pointer">
@@ -157,7 +205,9 @@ function HeaderRightContent() {
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent side="right" className="w-56">
-              <DropdownMenuLabel>Đã đăng nhập {user.userName}</DropdownMenuLabel>
+              <DropdownMenuLabel>
+                Đã đăng nhập {user.userName}
+              </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => navigate("/account")}>
                 <UserCog className="mr-2 h-4 w-4" />
@@ -175,9 +225,6 @@ function HeaderRightContent() {
     </div>
   );
 }
-
-
-
 
 function ShoppingHeader() {
   const { isAuthenticated } = useSelector((state) => state.auth);
