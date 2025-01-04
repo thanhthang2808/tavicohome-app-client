@@ -28,6 +28,7 @@ import TavicoNhaToChuc from "./pages/shopping-view/introduction-Tavico-nhatochuc
 import SupplierLayout from "./components/supplier-view/layout";
 import SupplierProducts from "./pages/supplier-view/products";
 import LoadingImg from "./assets/loading_animation.gif";
+import ServiceGiaiTriAnUong from "./pages/shopping-view/services/service-giai-tri-an-uong";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
@@ -113,6 +114,7 @@ function App() {
           <Route path="search" element={<SearchProducts />} />
           <Route path="gioi-thieu/cong-ty-co-phan-tavico-home" element={<TavicoHomeIntroduction />} />
           <Route path="gioi-thieu/cong-ty-tavico-nha-to-chuc" element={<TavicoNhaToChuc />} />
+          <Route path="dich-vu/giai-tri-an-uong" element={<ServiceGiaiTriAnUong />} />
         </Route>
         <Route path="/unauth-page" element={<UnauthPage />} />
         <Route path="*" element={<NotFound />} />

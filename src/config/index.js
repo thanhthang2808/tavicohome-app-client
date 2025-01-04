@@ -108,21 +108,21 @@ export const shoppingViewHeaderMenuItems = [
     path: "/",
   },
   {
-    id: "2",
+    id: "introduction",
     label: "Giới thiệu",
     path: "/gioi-thieu/cong-ty-co-phan-tavico-home",
     subMenu: [
-      { id: "2", label: "Công ty Cổ phần Tavico Home", path: "/gioi-thieu/cong-ty-co-phan-tavico-home" },
-      { id: "2", label: "Công ty Tavico - Nhà Tổ Chức", path: "/gioi-thieu/cong-ty-tavico-nha-to-chuc" },
+      { id: "tavicohome", label: "Công ty Cổ phần Tavico Home", path: "/gioi-thieu/cong-ty-co-phan-tavico-home" },
+      { id: "tavico", label: "Công ty Tavico - Nhà Tổ Chức", path: "/gioi-thieu/cong-ty-tavico-nha-to-chuc" },
     ],
   },
   {
-    id: "men",
+    id: "supplier",
     label: "Nhà cung cấp",
     path: "/nhacungcap",
     subMenu: [
-      { id: "chodaumoi", label: "Nội Thất Chợ Đầu Mối", path: "/shop/products/electronics" },
-      { id: "noithattavico", label: "Nội Thất Tavico", path: "/shop/products/furniture" },
+      { id: "chodaumoi", label: "Nội Thất Chợ Đầu Mối", path: "/our-supplier" },
+      { id: "noithattavico", label: "Nội Thất Tavico", path: "/our-supplier/noi-that-tavico" },
     ],
   },
   {
@@ -132,7 +132,7 @@ export const shoppingViewHeaderMenuItems = [
       { id: "thuematbang", label: "Thuê Mặt Bằng", path: "/shop/products/electronics" },
       { id: "sukienhoinghi", label: "Sự Kiện - Hội Nghị", path: "/shop/products/furniture" },
       { id: "bocxepdonggoi", label: "Bốc Xếp - Đóng Gói", path: "/shop/products/electronics" },
-      { id: "giaitrianuong", label: "Giải Trí - Ăn Uống", path: "/shop/products/furniture" },
+      { id: "giaitrianuong", label: "Giải Trí - Ăn Uống", path: "/dich-vu/giai-tri-an-uong" },
     ],
   },
   {
