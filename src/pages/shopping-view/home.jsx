@@ -271,6 +271,9 @@ function ShoppingHome() {
     <div className="flex flex-col min-h-screen">
       <Helmet>
         <title>Thế Giới Gỗ và Nội Thất - Tavico Home</title>
+        <meta name="description" content="Số 81 Đường Điểu Xiển - KP.9 - P.Tân Biên - Tp. Biên Hòa - Tỉnh Đồng Nai; Hotline Tavico Home : 0855 555 595 - 0988 951 579; tavicohome@gmail.com." />
+        <link rel="preconnect" href="https://www.youtube.com" />
+        <link rel="preconnect" href="https://img.youtube.com" />
       </Helmet>
       <div className="relative w-full overflow-hidden">
         <div className="relative h-[50vw] md:h-[600px] overflow-hidden">
@@ -279,9 +282,11 @@ function ShoppingHome() {
                 <img
                   src={slide?.image}
                   key={index}
+                  alt={`Tavico Home Banner ${index + 1}`}
                   className={`${
                     index === currentSlide ? "opacity-100" : "opacity-0"
                   } absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000`}
+                  loading="lazy"
                 />
               ))
             : null}
@@ -296,6 +301,7 @@ function ShoppingHome() {
               )
             }
             className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80"
+            aria-label="Previous Slide"
           >
             <ChevronLeftIcon className="w-4 h-4" />
           </Button>
@@ -308,6 +314,7 @@ function ShoppingHome() {
               )
             }
             className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/80"
+            aria-label="Next Slide"
           >
             <ChevronRightIcon className="w-4 h-4" />
           </Button>
@@ -418,7 +425,7 @@ function ShoppingHome() {
               width="100%"
               height="500"
               src="https://www.youtube.com/embed/nmaOrjE_CPw"
-              title="Video lớn"
+              title="Ky niem 18 nam thanh lap Tavico Group"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>

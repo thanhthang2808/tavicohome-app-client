@@ -50,6 +50,7 @@ function ShoppingLayout() {
                   width="100%"
                   height="150"
                   className="rounded"
+                  title="Google Maps"
                   loading="lazy"
                 ></iframe>
               </div>
