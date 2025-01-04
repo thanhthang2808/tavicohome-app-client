@@ -198,6 +198,13 @@ function ShoppingHome() {
     featureImageList && featureImageList.length > 0
       ? featureImageList
       : defaultFeatureImages;
+  
+      useEffect(() => {
+        imagesToDisplay.forEach((slide) => {
+          const img = new Image();
+          img.src = slide?.image; // Preload the image
+        });
+      }, [imagesToDisplay]);
 
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
 
