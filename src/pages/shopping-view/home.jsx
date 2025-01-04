@@ -187,6 +187,8 @@ const defaultFeatureImages = [
   },
 ];  
 
+const pageDescription = "Tavico không chỉ được biết đến là Trung tâm phân phối gỗ nguyên liệu hợp pháp trong 15 năm qua cho các nhà máy chế biến gỗ mà còn tạo ra Thế Giới Nội Thất Gỗ Tây - Tavico Hố Nai nhằm tạo điều kiện thuận lợi cho các DN sản xuất đồ gỗ nội thất có đủ diện tích trưng bày hàng hoá mà còn giúp người mua hàng tiết kiệm thời gian chọn lựa mặt hàng nội thất ưng ý cũng như mua được hàng xuất khẩu với giá xuất kho.Với phương châm Chất lượng Tây, giá Ta, không nơi nào bằng. THẾ GIỚI NỘI THẤT GỖ TÂY - TAVICO HỐ NAI Đường Điểu Xiển, Tổ 8, khu phố 9, P.Tân Biên, TP. Biên Hòa, Tỉnh Đồng Nai Đ𝐢ệ𝐧 𝐭𝐡𝐨ạ𝐢 : 085 555 55 95 - 0988 951 579";
+
 function ShoppingHome() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { productList, productDetails } = useSelector(
@@ -278,6 +280,7 @@ function ShoppingHome() {
     <div className="flex flex-col min-h-screen">
       <Helmet>
         <title>Thế Giới Gỗ và Nội Thất - Tavico Home</title>
+        <meta name="description" content={pageDescription} />
       </Helmet>
       <div className="relative w-full overflow-hidden">
         <div className="relative h-[50vw] md:h-[600px] overflow-hidden">
@@ -286,6 +289,7 @@ function ShoppingHome() {
                 <img
                   src={slide?.image}
                   key={index}
+                  alt={`Tavico Home Banner ${index + 1}`}
                   className={`${
                     index === currentSlide ? "opacity-100" : "opacity-0"
                   } absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000`}
