@@ -144,12 +144,7 @@ export const shoppingViewHeaderMenuItems = [
     id: "footwear",
     label: "Liên hệ",
     path: "/contact",
-  },
-  {
-    id: "search",
-    label: "Tìm kiếm",
-    path: "/search",
-  },
+  }
 ];
 
 export const categoryOptionsMap = {

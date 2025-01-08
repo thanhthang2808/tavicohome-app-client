@@ -3,6 +3,7 @@ import {
   LogIn,
   LogOut,
   Menu,
+  Search,
   ShoppingCart,
   UserCog,
 } from "lucide-react";
@@ -42,10 +43,10 @@ function MenuItems() {
 
   const toggleDropdown = (menuId) => {
     setMenuState((prevState) =>
-      prevState.map((menu) => 
+      prevState.map((menu) =>
         menu.id === menuId
           ? { ...menu, isOpen: !menu.isOpen }
-          : { ...menu, isOpen: false }  
+          : { ...menu, isOpen: false }
       )
     );
   };
@@ -165,13 +166,21 @@ function HeaderRightContent() {
   return (
     <div className="flex lg:items-center lg:flex-row flex-col gap-4 w-[125px] justify-end">
       {!user ? (
-        <Button
-          onClick={() => navigate("auth/login")}
-          className="flex items-center gap-2 bg-blue-600 text-white px-2 py-1 rounded-md text-sm font-bold hover:bg-blue-700"
-        >
-          <LogIn className="w-4 h-4" />
-          Đăng nhập
-        </Button>
+        <div className="flex gap-4 items-center text-sm">
+          <Link
+            to="auth/login"
+            className="text-blue-800 font-bold whitespace-nowrap hover:text-blue-600"
+          >
+            Đăng nhập
+          </Link>
+          <span className="text-gray-400">|</span>
+          <Link
+            to="auth/register"
+            className="text-red-600 font-bold whitespace-nowrap hover:text-red-400"
+          >
+            Đăng ký
+          </Link>
+        </div>
       ) : (
         <>
           <Sheet
@@ -244,11 +253,23 @@ function ShoppingHeader() {
           </SheetTrigger>
           <SheetContent side="left" className="w-full max-w-xs">
             <MenuItems />
+            <button className="text-gray-600 hover:text-gray-800">
+              <Search
+                className="ml-2 mb-2 h-5 w-5"
+                onClick={() => (window.location.href = "/search")}
+              />
+            </button>
             <HeaderRightContent />
           </SheetContent>
         </Sheet>
-        <div className="hidden lg:block">
+        <div className="hidden lg:flex items-center">
           <MenuItems />
+          <button
+            className="text-gray-600 hover:text-gray-800"
+            onClick={() => (window.location.href = "/search")}
+          >
+            <Search className="h-5 w-5 ml-10" />
+          </button>
         </div>
 
         <div className="hidden lg:block">

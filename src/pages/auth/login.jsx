@@ -49,6 +49,7 @@ function AuthLogin() {
           draggable: true,
           progress: undefined,
         });
+        console.error("Error logging in", data);
       }
     });
   }

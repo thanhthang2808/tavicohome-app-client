@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faYoutube, faLinkedin, faTiktok } from '@fortawesome/free-brands-svg-icons';
 import SimpleBar from "simplebar-react";
 import 'simplebar/dist/simplebar.min.css'; // Import CSS của SimpleBar
+import ChatBot from "../ui/chat-bot";
 
 function ShoppingLayout() {
   return (
@@ -13,6 +14,7 @@ function ShoppingLayout() {
 
         <main className="flex flex-col w-full mt-[64px]">
           <Outlet />
+          <ChatBot />
         </main>
         <footer className="bg-[#01182f] text-white py-8">
           <div className="container mx-auto px-4">
