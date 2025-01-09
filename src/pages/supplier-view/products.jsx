@@ -24,7 +24,7 @@ const initialFormData = {
   title: "",
   description: "",
   category: "",
-  brand: "",
+  
   price: "",
   salePrice: "",
   totalStock: "",
@@ -34,6 +34,7 @@ const initialFormData = {
 function SupplierProducts() {
   const [openCreateProductsDialog, setOpenCreateProductsDialog] =
     useState(false);
+    const { user } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState(initialFormData);
   const [imageFile, setImageFile] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
@@ -67,6 +68,8 @@ function SupplierProducts() {
           addNewProduct({
             ...formData,
             image: uploadedImageUrl,
+            brand: user?.userName,
+            postedBy: user?._id,
           })
         ).then((data) => {
           if (data?.payload?.success) {

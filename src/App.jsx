@@ -21,14 +21,15 @@ import { checkAuth } from "./store/auth-slice";
 import PaypalReturnPage from "./pages/shopping-view/paypal-return";
 import PaymentSuccessPage from "./pages/shopping-view/payment-success";
 import SearchProducts from "./pages/shopping-view/search";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import TavicoHomeIntroduction from "./pages/shopping-view/introduction-CTCP-TavicoHome";
 import TavicoNhaToChuc from "./pages/shopping-view/introduction-Tavico-nhatochuc";
 import SupplierLayout from "./components/supplier-view/layout";
 import SupplierProducts from "./pages/supplier-view/products";
 import LoadingImg from "./assets/loading_animation.gif";
 import ServiceGiaiTriAnUong from "./pages/shopping-view/services/service-giai-tri-an-uong";
+import SupplierList from "./pages/shopping-view/supplier-list";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
@@ -47,7 +48,6 @@ function App() {
       </div>
     );
   }
-  
 
   console.log(isLoading, user);
 
@@ -61,7 +61,7 @@ function App() {
         draggable
         progress={undefined}
       />
-      <Routes>        
+      <Routes>
         <Route
           path="/auth"
           element={
@@ -96,14 +96,7 @@ function App() {
         >
           <Route path="products" element={<SupplierProducts />} />
         </Route>
-        <Route
-          path="/"
-          element={
-            
-              <ShoppingLayout />
-  
-          }
-        >
+        <Route path="/" element={<ShoppingLayout />}>
           <Route index element={<ShoppingHome />} />
           <Route path="home" element={<ShoppingHome />} />
           <Route path="listing" element={<ShoppingListing />} />
@@ -112,9 +105,27 @@ function App() {
           <Route path="paypal-return" element={<PaypalReturnPage />} />
           <Route path="payment-success" element={<PaymentSuccessPage />} />
           <Route path="search" element={<SearchProducts />} />
-          <Route path="gioi-thieu/cong-ty-co-phan-tavico-home" element={<TavicoHomeIntroduction />} />
-          <Route path="gioi-thieu/cong-ty-tavico-nha-to-chuc" element={<TavicoNhaToChuc />} />
-          <Route path="dich-vu/giai-tri-an-uong" element={<ServiceGiaiTriAnUong />} />
+          <Route
+            path="gioi-thieu/cong-ty-co-phan-tavico-home"
+            element={<TavicoHomeIntroduction />}
+          />
+          <Route
+            path="gioi-thieu/cong-ty-tavico-nha-to-chuc"
+            element={<TavicoNhaToChuc />}
+          />
+          <Route path="nha-cung-cap" element={<SupplierList />} />
+          <Route
+            path="dich-vu/giai-tri-an-uong"
+            element={<ServiceGiaiTriAnUong />}
+          />
+          <Route
+            path="loaderio-f6d0603d86fe49da3611b3d4b380f513.txt"
+            element={() => {
+              window.location.href =
+                "/loaderio-f6d0603d86fe49da3611b3d4b380f513.txt";
+              return null;
+            }}
+          />
         </Route>
         <Route path="/unauth-page" element={<UnauthPage />} />
         <Route path="*" element={<NotFound />} />

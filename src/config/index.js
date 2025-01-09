@@ -121,7 +121,7 @@ export const shoppingViewHeaderMenuItems = [
     label: "Nhà cung cấp",
     path: "/nhacungcap",
     subMenu: [
-      { id: "chodaumoi", label: "Nội Thất Chợ Đầu Mối", path: "/our-supplier" },
+      { id: "chodaumoi", label: "Nội Thất Chợ Đầu Mối", path: "/nha-cung-cap" },
       { id: "noithattavico", label: "Nội Thất Tavico", path: "/our-supplier/noi-that-tavico" },
     ],
   },
